@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "animated-number-react": "^0.1.0",
     "axios": "^1.7.2",
+    "electron": "^30.0.9",
     "emotion": "^10.0.27",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
@@ -21,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "electron-start": "electron electron-main.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
