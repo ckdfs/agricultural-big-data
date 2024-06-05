@@ -1,4 +1,13 @@
-import React from 'react';
+/*
+ * @Author: ckdfs 2459317008@qq.com
+ * @Date: 2024-06-06 00:06:38
+ * @LastEditors: ckdfs 2459317008@qq.com
+ * @LastEditTime: 2024-06-06 02:44:17
+ * @FilePath: \agricultural-big-data\src\containers\Natural.jsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Layout from '../layouts/Box';
 import { $icon } from '../utils';
@@ -21,13 +30,35 @@ const Box = ({ icon, list = [] }) => (
 );
 
 export default function Natural() {
+    const [temperature, setTemperature] = useState('NA°C');
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            axios.get('http://localhost:5000/temperature')
+                .then(response => {
+                    setTemperature(response.data.temperature);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }, 1000);
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
     const data = [
         [
-            { icon: $icon('temperature'), list: [{ title: '平均气温', val: '13.7°C' }] },
+            { icon: $icon('temperature'), list: [{ title: '平均气温', val: temperature }] },
+        ],
+        [
             { icon: $icon('rainfull'), list: [{ title: '年均降雨', val: '384.5mm' }] },
         ],
         [
             { icon: $icon('wind'), list: [{ title: '平均风速', val: '3.4m/s' }] },
+        ],
+        [
             { icon: $icon('geogarphy'), list: [{ title: '地形地貌', val: '冲击平原区' }] },
         ],
         {

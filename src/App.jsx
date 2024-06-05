@@ -2,7 +2,6 @@ import React from 'react';
 
 import Navigation from './components/Navigation';
 import Natural from './containers/Natural';
-import Economic from './containers/Economic';
 import Farming from './containers/Farming';
 import Industrial from './containers/Industrial';
 import Advantage from './containers/Advantage';
@@ -14,8 +13,7 @@ export default function App() {
             <Navigation />
             <section className='main'>
                 <div className='main-left'>
-                    <Natural />
-                    <Economic />
+                    <Natural />\
                 </div>
                 <div className='main-right'>
                     <Industrial />
@@ -30,7 +28,7 @@ export default function App() {
                 </div>
             </section>
             <footer>
-                <p>Copyright © 2020 <a href='https://github.com/Lizhooh' target='_blank' rel="noopener noreferrer">Lizhooh</a></p>
+                <p>Copyright © 2024 <a href='https://github.com/ckdfs' target='_blank' rel="noopener noreferrer">ckdfs</a></p>
             </footer>
         </div>
     );
