@@ -10,6 +10,7 @@
 
 # production
 /build
+/winApp-win32-x64
 
 # misc
 .DS_Store

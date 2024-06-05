@@ -20,14 +20,18 @@
     "serve": "^11.3.2",
     "source-map-explorer": "^2.4.2"
   },
+  "main": "electron-main.js",
   "scripts": {
     "start": "react-scripts start",
-    "electron-start": "electron electron-main.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "serve ./build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "electron-start": "electron electron-main.js",
+    "packager:win": "electron-packager ./ winApp --platform=win32 --arch=x64 --overwrite --no-prune --ignore=/node_modules",
+    "packager:linux-x64": "electron-packager ./ linuxApp --platform=linux --arch=x64   --overwrite --no-prune --ignore=/node_modules",
+    "packager:linux-arm64": "electron-packager ./ linuxApp --platform=linux --arch=arm64   --overwrite --no-prune --ignore=/node_modules"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.2"
   }
 }
