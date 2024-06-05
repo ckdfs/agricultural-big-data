@@ -30,7 +30,7 @@ export default function App() {
                 </div>
             </section>
             <footer>
-                <p>Copyright © 2020 <a href='https://github.com/Lizhooh' target='_blank'>Lizhooh</a></p>
+                <p>Copyright © 2020 <a href='https://github.com/Lizhooh' target='_blank' rel="noopener noreferrer">Lizhooh</a></p>
             </footer>
         </div>
     );

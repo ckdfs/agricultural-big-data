@@ -148,11 +148,11 @@ export default function Profittrend() {
                                     <span>{item.title}</span>
                                     <div>
                                         <span>{item.yo * 10000 / 100}%</span>
-                                        <img src={$icon(item.yo > 0 ? 'triangle-up' : 'triangle-down')} />
+                                        <img src={$icon(item.yo > 0 ? 'triangle-up' : 'triangle-down')} alt="" />
                                     </div>
                                     <div>
                                         <span>{item.mo * 10000 / 100}%</span>
-                                        <img src={$icon(item.mo > 0 ? 'triangle-up' : 'triangle-down')} />
+                                        <img src={$icon(item.mo > 0 ? 'triangle-up' : 'triangle-down')} alt="" />
                                     </div>
                                 </div>
                             ))}
