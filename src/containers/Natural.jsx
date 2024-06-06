@@ -2,7 +2,7 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-06 00:06:38
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-06 02:44:17
+ * @LastEditTime: 2024-06-06 06:20:17
  * @FilePath: \agricultural-big-data\src\containers\Natural.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -31,12 +31,27 @@ const Box = ({ icon, list = [] }) => (
 
 export default function Natural() {
     const [temperature, setTemperature] = useState('NA°C');
+    const [humidity, setHumidity] = useState('NA%');
+    const [lightIntensity, setLightIntensity] = useState('NA lux');
+    const [co2Concentration, setCo2Concentration] = useState('NA ppm');
+    const [soilTemperature, setSoilTemperature] = useState('NA°C');
+    const [soilHumidity, setSoilHumidity] = useState('NA%');
+    const [soilPH, setSoilPH] = useState('NA');
+    const [soilConductivity, setSoilConductivity] = useState('NA μS/cm');
 
     useEffect(() => {
         const timer = setInterval(() => {
-            axios.get('http://localhost:5000/temperature')
+            axios.get('http://localhost:5000/environment_data')
                 .then(response => {
-                    setTemperature(response.data.temperature);
+                    const data = response.data;
+                    setTemperature(data.temperature);
+                    setHumidity(data.humidity);
+                    setLightIntensity(data.light_intensity);
+                    setCo2Concentration(data.CO2_concentration);
+                    setSoilTemperature(data.soil_temperature);
+                    setSoilHumidity(data.soil_humidity);
+                    setSoilPH(data.soil_PH);
+                    setSoilConductivity(data.soil_conductivity);
                 })
                 .catch(error => {
                     console.error(error);
@@ -50,30 +65,29 @@ export default function Natural() {
 
     const data = [
         [
-            { icon: $icon('temperature'), list: [{ title: '平均气温', val: temperature }] },
+            { icon: $icon('temperature'), list: [{ title: '温度', val: temperature }] },
         ],
         [
-            { icon: $icon('rainfull'), list: [{ title: '年均降雨', val: '384.5mm' }] },
+            { icon: $icon('rainfull'), list: [{ title: '湿度', val: humidity }] },
         ],
         [
-            { icon: $icon('wind'), list: [{ title: '平均风速', val: '3.4m/s' }] },
+            { icon: $icon('wind'), list: [{ title: '光照强度', val: lightIntensity }] },
         ],
         [
-            { icon: $icon('geogarphy'), list: [{ title: '地形地貌', val: '冲击平原区' }] },
+            { icon: $icon('geogarphy'), list: [{ title: 'CO₂浓度', val: co2Concentration }] },
         ],
-        {
-            icon: $icon('riverway1'), list: [
-                { title: '一级河道', val: '5个' },
-                { title: '二级河道', val: '12个' },
-                { title: '蓄水量', val: '1.7亿m3' },
-            ]
-        },
-        {
-            icon: $icon('forest'), list: [
-                { title: '区域面积', val: '1296km2' },
-                { title: '林地面积', val: '90万亩' },
-            ],
-        }
+        [
+            { icon: $icon('riverway1'), list: [{ title: '土壤温度', val: soilTemperature }] },
+        ],
+        [
+            { icon: $icon('forest'), list: [{ title: '土壤湿度', val: soilHumidity }] },
+        ],
+        [
+            { icon: $icon('riverway2'), list: [{ title: '土壤PH值', val: soilPH }] },
+        ],
+        [
+            { icon: $icon('crops1'), list: [{ title: '土壤电导率', val: soilConductivity }] },
+        ],
     ];
 
     return (
