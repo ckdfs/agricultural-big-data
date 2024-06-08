@@ -1,0 +1,51 @@
+
+.control {
+    .list {
+        color: #ddd;
+        display: flex;
+        text-align: center;
+        padding: 15px 12px;
+
+        &-item {
+            flex: 1;
+            background-color: rgba(47, 238, 226, 0.03);
+            margin: 0 12px;
+            position: relative;
+        }
+        &-title {
+            color: $text-color;
+            font-weight: bold;
+            background-color: rgba(30, 255, 60, 0.08);
+            height: 30px;
+            line-height: 30px;
+        }
+        &-val {
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            color: $text-white-color;
+        }
+    }
+
+    .mark-title {
+        color: $text-color;
+        padding: 16px;
+        padding-left: 30px;
+        padding-bottom: 0;
+        font-size: 13px;
+        position: relative;
+        display: block;
+        .dot {
+            display: block;
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 100%;
+            background-color: $text-color;
+            top: 24px; left: 19px;
+            z-index: 2;
+        }
+    }
+
+}
+
