@@ -2,12 +2,13 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-06 00:06:38
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-06 06:20:17
+ * @LastEditTime: 2024-06-09 00:23:04
  * @FilePath: \agricultural-big-data\src\containers\Natural.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import Layout from '../layouts/Box';
 import { $icon } from '../utils';
@@ -40,26 +41,42 @@ export default function Natural() {
     const [soilConductivity, setSoilConductivity] = useState('NA μS/cm');
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            axios.get('http://localhost:5000/environment_data')
-                .then(response => {
-                    const data = response.data;
-                    setTemperature(data.temperature);
-                    setHumidity(data.humidity);
-                    setLightIntensity(data.light_intensity);
-                    setCo2Concentration(data.CO2_concentration);
-                    setSoilTemperature(data.soil_temperature);
-                    setSoilHumidity(data.soil_humidity);
-                    setSoilPH(data.soil_PH);
-                    setSoilConductivity(data.soil_conductivity);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }, 1000);
+        // 初次加载或刷新页面时，向服务端请求一次数据
+        axios.get('http://localhost:5000/environment_data')
+            .then(response => {
+                const data = response.data;
+                setTemperature(data.temperature);
+                setHumidity(data.humidity);
+                setLightIntensity(data.light_intensity);
+                setCo2Concentration(data.CO2_concentration);
+                setSoilTemperature(data.soil_temperature);
+                setSoilHumidity(data.soil_humidity);
+                setSoilPH(data.soil_PH);
+                setSoilConductivity(data.soil_conductivity);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        // 建立WebSocket连接
+        const socket = io('http://localhost:5000');
+        socket.on('connect', () => {
+            console.log('WebSocket connected');
+        });
+        // 监听服务端推送的环境数据更新
+        socket.on('environment_data', (data) => {
+            setTemperature(data.temperature);
+            setHumidity(data.humidity);
+            setLightIntensity(data.light_intensity);
+            setCo2Concentration(data.CO2_concentration);
+            setSoilTemperature(data.soil_temperature);
+            setSoilHumidity(data.soil_humidity);
+            setSoilPH(data.soil_PH);
+            setSoilConductivity(data.soil_conductivity);
+        });
 
         return () => {
-            clearInterval(timer);
+            socket.disconnect();
         };
     }, []);
 

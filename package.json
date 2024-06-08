@@ -18,6 +18,7 @@
     "react-scripts": "3.4.1",
     "sass": "^1.26.8",
     "serve": "^11.3.2",
+    "socket.io-client": "^4.7.5",
     "source-map-explorer": "^2.4.2"
   },
   "main": "electron-main.js",
