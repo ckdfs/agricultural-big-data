@@ -29,7 +29,7 @@ img {
     // background-image: linear-gradient($app-color, #32373a);
 
     .main {
-        $w: 400px;
+        $w: 350px;
         padding: 10px 8px;
         padding-bottom: 4px;
 
@@ -46,11 +46,10 @@ img {
             margin-right: $w;
 
             &-panel {
-                height: 618px;
+                height: auto;
                 background-color: #212121;
-                margin: 12px;
+                margin: auto;
                 margin-top: 138px;
-                padding-bottom: 4px;
             }
         }
 

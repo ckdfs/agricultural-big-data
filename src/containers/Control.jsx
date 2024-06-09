@@ -2,12 +2,11 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-09 00:56:24
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-09 01:41:58
+ * @LastEditTime: 2024-06-09 14:11:23
  * @FilePath: \agricultural-big-data\src\containers\Control.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import React, { useState } from 'react';
-import AnNumber from 'animated-number-react';
 import Layout from '../layouts/Box';
 
 const MarkTitle = ({ title }) => (

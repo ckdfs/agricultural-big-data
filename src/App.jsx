@@ -2,7 +2,7 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-06 00:06:38
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-09 00:57:51
+ * @LastEditTime: 2024-06-09 14:38:09
  * @FilePath: \agricultural-big-data\src\App.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,8 +12,9 @@ import Navigation from './components/Navigation';
 import Natural from './containers/Natural';
 import Farming from './containers/Farming';
 import Industrial from './containers/Industrial';
-import Profittrend from './containers/Profittrend';
+// import Profittrend from './containers/Profittrend';
 import Control from './containers/Control';
+import Camera from './containers/Camera';
 
 export default function App() {
     return (
@@ -29,7 +30,8 @@ export default function App() {
                 </div>
                 <div className='main-center'>
                     <div className='main-center-panel'>
-                        <Profittrend />
+                        {/* <Profittrend /> */}
+                        <Camera />
                     </div>
 
                     <Farming />
