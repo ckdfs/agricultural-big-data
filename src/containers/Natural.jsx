@@ -2,7 +2,7 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-06 00:06:38
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-09 00:23:04
+ * @LastEditTime: 2024-06-14 22:01:28
  * @FilePath: \agricultural-big-data\src\containers\Natural.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -45,19 +45,19 @@ export default function Natural() {
         axios.get('http://localhost:5000/environment_data')
             .then(response => {
                 const data = response.data;
-                setTemperature(data.temperature);
-                setHumidity(data.humidity);
-                setLightIntensity(data.light_intensity);
-                setCo2Concentration(data.CO2_concentration);
-                setSoilTemperature(data.soil_temperature);
-                setSoilHumidity(data.soil_humidity);
-                setSoilPH(data.soil_PH);
-                setSoilConductivity(data.soil_conductivity);
+                setTemperature(`${data.temperature}°C`);
+                setHumidity(`${data.humidity}%`);
+                setLightIntensity(`${data.lightIntensity} lux`);
+                setCo2Concentration(`${data.co2Concentration} ppm`);
+                setSoilTemperature(`${data.soilTemperature}°C`);
+                setSoilHumidity(`${data.soilHumidity}%`);
+                setSoilPH(data.soilPH);
+                setSoilConductivity(`${data.soilConductivity} μS/cm`);
             })
             .catch(error => {
                 console.error(error);
             });
-
+    
         // 建立WebSocket连接
         const socket = io('http://localhost:5000');
         socket.on('connect', () => {
@@ -65,16 +65,16 @@ export default function Natural() {
         });
         // 监听服务端推送的环境数据更新
         socket.on('environment_data', (data) => {
-            setTemperature(data.temperature);
-            setHumidity(data.humidity);
-            setLightIntensity(data.light_intensity);
-            setCo2Concentration(data.CO2_concentration);
-            setSoilTemperature(data.soil_temperature);
-            setSoilHumidity(data.soil_humidity);
-            setSoilPH(data.soil_PH);
-            setSoilConductivity(data.soil_conductivity);
+            setTemperature(`${data.temperature}°C`);
+            setHumidity(`${data.humidity}%`);
+            setLightIntensity(`${data.lightIntensity} lux`);
+            setCo2Concentration(`${data.co2Concentration} ppm`);
+            setSoilTemperature(`${data.soilTemperature}°C`);
+            setSoilHumidity(`${data.soilHumidity}%`);
+            setSoilPH(data.soilPH);
+            setSoilConductivity(`${data.soilConductivity} μS/cm`);
         });
-
+    
         return () => {
             socket.disconnect();
         };

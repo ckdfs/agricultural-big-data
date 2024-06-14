@@ -2,7 +2,7 @@
 Author: ckdfs 2459317008@qq.com
 Date: 2024-06-06 02:20:27
 LastEditors: ckdfs 2459317008@qq.com
-LastEditTime: 2024-06-09 00:44:41
+LastEditTime: 2024-06-12 17:31:05
 FilePath: \agricultural-big-data\python\main.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -36,12 +36,28 @@ def on_message(client, userdata, msg):
 
 # 将数据存储到数据库
 def store_data(data):
-    conn = sqlite3.connect('environment.db')
-    c = conn.cursor()
-    c.execute('''INSERT INTO environment_data (temperature, humidity, light_intensity, CO2_concentration, soil_temperature, soil_humidity, soil_PH, soil_conductivity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (data['temperature'], data['humidity'], data['light_intensity'], data['CO2_concentration'], data['soil_temperature'], data['soil_humidity'], data['soil_PH'], data['soil_conductivity']))
-    conn.commit()
-    conn.close()
-    print("Data stored to database: " + str(data))
+    try:
+        conn = sqlite3.connect('environment.db')
+        print("Connected to database successfully")
+        c = conn.cursor()
+        c.execute('''INSERT INTO environment_data (temperature, humidity, light_intensity, CO2_concentration, soil_temperature, soil_humidity, soil_PH, soil_conductivity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (
+            data['temperature'],
+            data['humidity'],
+            data['lightIntensity'],
+            data['co2Concentration'],
+            data['soilTemperature'],
+            data['soilHumidity'],
+            data['soilPH'],
+            data['soilConductivity']
+        ))
+        conn.commit()
+        print("Data stored to database: " + str(data))
+    except sqlite3.Error as e:
+        print("Database error: ", e)
+    except Exception as e:
+        print("Exception in _query: ", e)
+    finally:
+        conn.close()
 
 # 创建一个MQTT客户端
 client = mqtt.Client()
