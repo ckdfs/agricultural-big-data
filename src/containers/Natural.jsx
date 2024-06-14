@@ -2,12 +2,11 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-06 00:06:38
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-14 22:01:28
+ * @LastEditTime: 2024-06-15 07:10:49
  * @FilePath: \agricultural-big-data\src\containers\Natural.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import io from 'socket.io-client';
 
 import Layout from '../layouts/Box';
@@ -41,23 +40,6 @@ export default function Natural() {
     const [soilConductivity, setSoilConductivity] = useState('NA μS/cm');
 
     useEffect(() => {
-        // 初次加载或刷新页面时，向服务端请求一次数据
-        axios.get('http://localhost:5000/environment_data')
-            .then(response => {
-                const data = response.data;
-                setTemperature(`${data.temperature}°C`);
-                setHumidity(`${data.humidity}%`);
-                setLightIntensity(`${data.lightIntensity} lux`);
-                setCo2Concentration(`${data.co2Concentration} ppm`);
-                setSoilTemperature(`${data.soilTemperature}°C`);
-                setSoilHumidity(`${data.soilHumidity}%`);
-                setSoilPH(data.soilPH);
-                setSoilConductivity(`${data.soilConductivity} μS/cm`);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    
         // 建立WebSocket连接
         const socket = io('http://localhost:5000');
         socket.on('connect', () => {

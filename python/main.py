@@ -2,7 +2,7 @@
 Author: ckdfs 2459317008@qq.com
 Date: 2024-06-06 02:20:27
 LastEditors: ckdfs 2459317008@qq.com
-LastEditTime: 2024-06-15 07:04:25
+LastEditTime: 2024-06-15 07:55:45
 FilePath: \agricultural-big-data\python\main.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -82,11 +82,6 @@ client.subscribe(MQTT_TOPIC, qos=1)
 client.subscribe(MQTT_TOPIC2, qos=1)
 client.loop_start()
 
-@app.route('/environment_data')
-def get_environment_data():
-    data = get_latest_data()
-    return jsonify(data)
-
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
@@ -96,16 +91,6 @@ def handle_connect():
     
     # 向MQTT的relay主题发送ask命令
     client.publish(MQTT_TOPIC2, json.dumps({"action": "ask"}))
-    
-    # 这里的实现假设MQTT的响应会通过on_message回调接收并处理。
-    
-    # # 检查relay_status是否已更新，并发送给前端
-    # if 'relay_status' in globals():
-    #     emit('relay_status', relay_status)
-    #     print("你好喵      ",relay_status)
-    # else:
-    #     # 如果relay_status未更新，可以发送一个临时消息或者等待直到它被更新
-    #     print("Waiting for relay status update...")
 
 def get_latest_data():
     # 从数据库获取最新的环境信息
