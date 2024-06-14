@@ -2,7 +2,7 @@
 Author: ckdfs 2459317008@qq.com
 Date: 2024-06-06 02:20:27
 LastEditors: ckdfs 2459317008@qq.com
-LastEditTime: 2024-06-12 17:31:05
+LastEditTime: 2024-06-15 06:32:30
 FilePath: \agricultural-big-data\python\main.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -81,22 +81,31 @@ def handle_connect():
 
 def get_latest_data():
     # 从数据库获取最新的环境信息
-    conn = sqlite3.connect('environment.db')
-    c = conn.cursor()
-    c.execute('''SELECT * FROM environment_data ORDER BY id DESC LIMIT 1''')  # 假设有一个自增的id字段
-    data = c.fetchone()
-    conn.close()
+    try:
+        conn = sqlite3.connect('environment.db')
+        c = conn.cursor()
+        c.execute('''SELECT temperature, humidity, light_intensity, CO2_concentration, soil_temperature, soil_humidity, soil_PH, soil_conductivity FROM environment_data ORDER BY id DESC LIMIT 1''')  # 明确指定列名，确保数据顺序
+        data = c.fetchone()
+    except sqlite3.Error as e:
+        print("Database error: ", e)
+        return {}
+    except Exception as e:
+        print("Exception in get_latest_data: ", e)
+        return {}
+    finally:
+        if conn:
+            conn.close()
+
     if data:
-        # 假设数据表的列顺序与store_data中的插入顺序相同
         return {
-            'temperature': data[2],
-            'humidity': data[3],
-            'light_intensity': data[4],
-            'CO2_concentration': data[5],
-            'soil_temperature': data[6],
-            'soil_humidity': data[7],
-            'soil_PH': data[8],
-            'soil_conductivity': data[9]
+            'temperature': data[0],
+            'humidity': data[1],
+            'lightIntensity': data[2],
+            'co2Concentration': data[3],
+            'soilTemperature': data[4],
+            'soilHumidity': data[5],
+            'soilPH': data[6],
+            'soilConductivity': data[7]
         }
     else:
         return {}
