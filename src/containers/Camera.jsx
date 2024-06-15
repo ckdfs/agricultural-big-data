@@ -1,3 +1,11 @@
+/*
+ * @Author: ckdfs 2459317008@qq.com
+ * @Date: 2024-06-09 14:18:41
+ * @LastEditors: ckdfs 2459317008@qq.com
+ * @LastEditTime: 2024-06-15 08:01:03
+ * @FilePath: \agricultural-big-data\src\containers\Camera.jsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import React from 'react';
 import Layout from '../layouts/Box';
 
@@ -37,7 +45,7 @@ export default function Camera() {
     //     </Layout>
     // );
     return (
-        <Layout title='盈利趋势' minTitle='Profit trend'>
+        <Layout title='识别图像' minTitle='Recognized images'>
             <div className='camera'>
                 <div className='images-container' style={imagesContainerStyle}>
                 <img src={fullImage} alt="Full view" style={imageStyle} />

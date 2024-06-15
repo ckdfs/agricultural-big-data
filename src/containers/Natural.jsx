@@ -2,7 +2,7 @@
  * @Author: ckdfs 2459317008@qq.com
  * @Date: 2024-06-06 00:06:38
  * @LastEditors: ckdfs 2459317008@qq.com
- * @LastEditTime: 2024-06-15 07:10:49
+ * @LastEditTime: 2024-06-15 08:52:41
  * @FilePath: \agricultural-big-data\src\containers\Natural.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -47,14 +47,14 @@ export default function Natural() {
         });
         // 监听服务端推送的环境数据更新
         socket.on('environment_data', (data) => {
-            setTemperature(`${data.temperature}°C`);
-            setHumidity(`${data.humidity}%`);
-            setLightIntensity(`${data.lightIntensity} lux`);
-            setCo2Concentration(`${data.co2Concentration} ppm`);
-            setSoilTemperature(`${data.soilTemperature}°C`);
-            setSoilHumidity(`${data.soilHumidity}%`);
-            setSoilPH(data.soilPH);
-            setSoilConductivity(`${data.soilConductivity} μS/cm`);
+            setTemperature(`${parseFloat(data.temperature).toFixed(2)}°C`);
+            setHumidity(`${parseFloat(data.humidity).toFixed(2)}%`);
+            setLightIntensity(`${parseFloat(data.lightIntensity).toFixed(2)} lux`);
+            setCo2Concentration(`${parseFloat(data.co2Concentration).toFixed(2)} ppm`);
+            setSoilTemperature(`${parseFloat(data.soilTemperature).toFixed(2)}°C`);
+            setSoilHumidity(`${parseFloat(data.soilHumidity).toFixed(2)}%`);
+            setSoilPH(parseFloat(data.soilPH).toFixed(2));
+            setSoilConductivity(`${parseFloat(data.soilConductivity).toFixed(2)} μS/cm`);
         });
     
         return () => {
@@ -72,9 +72,9 @@ export default function Natural() {
         [
             { icon: $icon('wind'), list: [{ title: '光照强度', val: lightIntensity }] },
         ],
-        [
-            { icon: $icon('geogarphy'), list: [{ title: 'CO₂浓度', val: co2Concentration }] },
-        ],
+        // [
+        //     { icon: $icon('geogarphy'), list: [{ title: 'CO₂浓度', val: co2Concentration }] },
+        // ],
         [
             { icon: $icon('riverway1'), list: [{ title: '土壤温度', val: soilTemperature }] },
         ],

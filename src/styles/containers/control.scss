@@ -5,11 +5,13 @@
         display: flex;
         text-align: center;
         padding: 15px 12px;
+        margin-bottom: -30px;
 
         &-item {
             flex: 1;
             background-color: rgba(47, 238, 226, 0.03);
             margin: 0 12px;
+            margin-bottom: 20px;
             position: relative;
         }
         &-title {
