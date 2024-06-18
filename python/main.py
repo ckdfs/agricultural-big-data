@@ -2,7 +2,7 @@
 Author: ckdfs 2459317008@qq.com
 Date: 2024-06-06 02:20:27
 LastEditors: ckdfs 2459317008@qq.com
-LastEditTime: 2024-06-15 07:55:45
+LastEditTime: 2024-06-18 11:41:51
 FilePath: \agricultural-big-data\python\main.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -48,8 +48,29 @@ def on_message(client, userdata, msg):
         # 通过WebSocket广播环境信息
         socketio.emit('environment_data', data)
 
+# 在尝试存储数据之前，确保表存在
+def create_table():
+    conn = sqlite3.connect('environment.db')
+    c = conn.cursor()
+    c.execute('''
+    CREATE TABLE IF NOT EXISTS environment_data (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        temperature REAL,
+        humidity REAL,
+        light_intensity REAL,
+        CO2_concentration REAL,
+        soil_temperature REAL,
+        soil_humidity REAL,
+        soil_PH REAL,
+        soil_conductivity REAL
+    )
+    ''')
+    conn.commit()
+    conn.close()
+
 # 将数据存储到数据库
 def store_data(data):
+    create_table()  # 确保表存在
     try:
         conn = sqlite3.connect('environment.db')
         print("Connected to database successfully")
@@ -71,7 +92,8 @@ def store_data(data):
     except Exception as e:
         print("Exception in _query: ", e)
     finally:
-        conn.close()
+        if conn:
+            conn.close()
 
 # 创建一个MQTT客户端
 client = mqtt.Client()
